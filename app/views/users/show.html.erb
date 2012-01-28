@@ -2,3 +2,18 @@
 <h2><%= @user.location %></h2>
 
 <p><%= @user.bio %></p>
+
+<%= form_for [@user, Tweet.new] do |f| %>
+  <%= f.text_field :content %>
+  <%= submit_tag 'Post' %>
+<% end %>
+
+<table>
+  <% @user.tweets.each do |tweet| %>
+    <tr>
+      <td><%= tweet.content %></td>
+      <td><%= link_to 'Edit', edit_user_tweet_path(@user, tweet) %></td>
+      <td><%= link_to 'Delete', user_tweet_path(@user, tweet), :method => :delete, :confirm => "Are you sure?" %></td>
+    </tr>
+  <% end %>
+</table>
