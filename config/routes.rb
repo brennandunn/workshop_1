@@ -1,9 +1,11 @@
 Tweeter::Application.routes.draw do
 
-  get "tweets/edit"
-
   resources :users, :only => [:update, :create, :destroy] do
-    resources :tweets
+    resources :tweets do
+      member do
+        put :vote
+      end
+    end
   end
   get '/newest' => 'users#newest', :as => :newest
   get '/new' => 'users#new', :as => :new_user

@@ -1,11 +1,18 @@
 class TweetsController < ApplicationController
   before_filter :load_user
-  before_filter :load_tweet, :except => [:create]
+  before_filter :load_tweet, :except => [:create, :new]
 
   def edit
   end
 
-  def awesome
+  def vote
+    session[:voted_on] ||= []
+    unless session[:voted_on].include?(@tweet.id)
+      @tweet.vote_count += 1
+      @tweet.save
+      session[:voted_on] << @tweet.id
+    end
+    redirect_to user_path(@user.username)
   end
 
   def create

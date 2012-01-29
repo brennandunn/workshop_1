@@ -12,6 +12,10 @@
   <% @user.tweets.each do |tweet| %>
     <tr>
       <td><%= tweet.content %></td>
+      <td>
+        <%= tweet.vote_count %> 
+        <%= button_to '+', vote_user_tweet_path(@user, tweet), :method => :put %>
+      </td>
       <td><%= link_to 'Edit', edit_user_tweet_path(@user, tweet) %></td>
       <td><%= link_to 'Delete', user_tweet_path(@user, tweet), :method => :delete, :confirm => "Are you sure?" %></td>
     </tr>
